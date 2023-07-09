@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "GeomClipper",
+    "version": "1.0",
+    "description": "Choisissez une annonce en ligne pour obenir l'adresse du bien immobilier présenté.",
+    "action": {
+      "default_icon": {
+        "128": "icon.png"
+      },
+      "default_popup": ""
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "permissions": ["clipboardWrite", "tabs", "activeTab"],
+    "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }]
+  }
+  
