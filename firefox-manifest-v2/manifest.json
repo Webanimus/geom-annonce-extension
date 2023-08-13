@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Geom-annonce",
     "description": "Choisissez une annonce en ligne pour obenir l'adresse du bien immobilier présenté.",
-    "version": "1.0",
+    "version": "1.0.1",
     "background": {
         "scripts": ["background.js"],
         "persistent": false

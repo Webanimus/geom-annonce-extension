@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Geom-annonce",
-    "version": "1.0",
-    "description": "Choisissez une annonce en ligne pour obenir l'adresse du bien immobilier présenté.",
+    "name": "GeomAnnonce",
+    "version": "1.0.2",
+    "description": "Obtenez l'adresse exacte des annonces immobilières en ligne.",
     "action": {
       "default_icon": {
         "128": "icon.png"
@@ -15,6 +15,6 @@
     "permissions": ["clipboardWrite", "activeTab"],
     "content_scripts": [{
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["axios.min.js", "content.js"]
     }]
   }
