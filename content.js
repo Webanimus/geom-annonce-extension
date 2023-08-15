@@ -22,14 +22,14 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     console.log({ url, content });
 
     // POST request to 127.0.0.1:8000/geomannonce
-    axios.post("http://127.0.0.1:8000/geomannonce/save/", {
+    axios.post(BASE_URL + "/geomannonce/save/", {
       url: url,
       content: content
     }).then(response => {
       // Parse response
       let uuid = response.data.uuid;
       console.log(uuid);
-      let target = `http://127.0.0.1:8000/geomannonce/${uuid}/search/json/`;
+      let target = BASE_URL + `/geomannonce/${uuid}/search/`;
       window.open(target, '_blank');
       // GET request to the target
       return axios.get(target);
