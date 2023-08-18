@@ -1,20 +1,32 @@
 {
-    "manifest_version": 3,
-    "name": "GeomAnnonce",
-    "version": "1.0.2",
-    "description": "Obtenez l'adresse exacte des annonces immobilières en ligne.",
-    "action": {
-      "default_icon": {
-        "128": "icon.png"
-      },
-      "default_popup": ""
+  "manifest_version": 3,
+  "name": "Geom Annonce",
+  "version": "1.0.2",
+  "description": "Trouvez l'adresse exacte des annonces immobilières en ligne.",
+  "action": {
+    "default_icon": {
+      "128": "icon.png"
     },
-    "background": {
-      "service_worker": "background.js"
-    },
-    "permissions": ["clipboardWrite", "activeTab"],
-    "content_scripts": [{
-      "matches": ["<all_urls>"],
-      "js": ["axios.min.js", "content.js"]
-    }]
-  }
+    "default_popup": ""
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "clipboardWrite",
+    "activeTab"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "env.js",
+        "axios.min.js",
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}
