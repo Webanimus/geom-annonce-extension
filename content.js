@@ -48,9 +48,9 @@ function sendDOMToRemoteGeomAnnonce() {
     }).catch(error => {
 
         if (error.response) {
-            alert(`Erreur lors du chargement de cette page dans GeomAnnonce.\nVeuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n${save_url}\nStatus = ${error.response.status}\nError text = ${error.response.statusText}`);
+            alert(`Geom Annonce :\nErreur lors du chargement de cette page.\nVeuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n${save_url}\nStatus = ${error.response.status}\nError text = ${error.response.statusText}`);
         } else {
-            alert(`Erreur lors du chargement de cette page dans GeomAnnonce. Veuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n${save_url}\n` + error.message); // Getting message property of the error object.
+            alert(`Geom Annonce :\nErreur lors du chargement de cette page.\nVeuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n${save_url}\n` + error.message); // Getting message property of the error object.
         }
     });
 }
@@ -64,8 +64,8 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         if (hostnameIsSupported(window.location.hostname)) {
             console.log("Compatible hostname recognised: ", window.location.hostname);
         } else {
-            let alert_message = window.location.hostname + " n'est pas supporté pour le moment.\nVeuillez essayer sur une annonce immobilière sur un site compatible : "
-                + SUPPORTED_HOSTNAMES.join(", ");
+            let alert_message ="Geom Annonce :\nAnnonce immobilière non reconnue : " + window.location.hostname + ".\n\nVeuillez ré-essayer sur une annonce immobilière d'un site compatible : \n - "
+                + SUPPORTED_HOSTNAMES.join("\n - ");
             //TODO @JorisPLA7: replace alert by a cleaner popup
             alert(alert_message);
             return;
