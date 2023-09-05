@@ -36,8 +36,8 @@ function domReadyToSend() {
 function sendDOMToRemoteGeomAnnonce() {
     let domContent = document.documentElement.outerHTML;
     let url = window.location.href;
-
-    axios.post(BASE_URL + "/geomannonce/save/", {
+    let save_url = BASE_URL + "/geomannonce/save/";
+    axios.post(save_url, {
         url: url,
         content: domContent
     }).then(response => {
@@ -48,9 +48,9 @@ function sendDOMToRemoteGeomAnnonce() {
     }).catch(error => {
 
         if (error.response) {
-            alert(`Erreur lors du chargement de cette page dans GeomAnnonce. Veuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\nStatus = ${error.response.status}, Error text = ${error.response.statusText}`);
+            alert(`Erreur lors du chargement de cette page dans GeomAnnonce.\nVeuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n${save_url}\nStatus = ${error.response.status}\nError text = ${error.response.statusText}`);
         } else {
-            alert("Erreur lors du chargement de cette page dans GeomAnnonce. Veuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n" + error.message); // Getting message property of the error object.
+            alert(`Erreur lors du chargement de cette page dans GeomAnnonce. Veuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n${save_url}\n` + error.message); // Getting message property of the error object.
         }
     });
 }
@@ -66,7 +66,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         } else {
             let alert_message = window.location.hostname + " n'est pas supporté pour le moment.\nVeuillez essayer sur une annonce immobilière sur un site compatible : "
                 + SUPPORTED_HOSTNAMES.join(", ");
-            //TODO @JorisPLA7: replace alert by a cleaner popup (to make in figma 1st)
+            //TODO @JorisPLA7: replace alert by a cleaner popup
             alert(alert_message);
             return;
         }
