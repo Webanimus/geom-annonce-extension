@@ -7,13 +7,12 @@
     "default_icon": {
       "128": "icon.png"
     },
-    "default_popup": ""
+    "default_popup": "popup.html"
   },
   "background": {
     "service_worker": "background.js"
   },
   "permissions": [
-    "clipboardWrite",
     "activeTab"
   ],
   "content_scripts": [
