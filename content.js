@@ -48,12 +48,13 @@ function sendDOMToRemoteGeomAnnonce() {
     }).catch(error => {
 
         if (error.response) {
-            alert(`Geom Annonce :\nErreur lors du chargement de cette page.\nVeuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n${save_url}\nStatus = ${error.response.status}\nError text = ${error.response.statusText}`);
+            alert(`Geom Annonce :\nAnnonce immobilière non reconnue, êtes-vous sur que ceci est une annonce immobilière ? \n\n${save_url}\n`);
         } else {
-            alert(`Geom Annonce :\nErreur lors du chargement de cette page.\nVeuilez contacter le support à contact@webanimus.com avec les informations suivantes :\n\n${save_url}\n` + error.message); // Getting message property of the error object.
+            alert(`Geom Annonce :\nAnnonce immobilière non reconnue, êtes-vous sur que ceci est une annonce immobilière ? \n\n${save_url}\n`);
         }
     });
 }
+
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (msg.text === 'geomannonce-lookup') {

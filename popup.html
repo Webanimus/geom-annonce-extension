@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browser Extension Popup</title>
     <style>
         body {
@@ -69,6 +70,44 @@
             padding: 10px;
             cursor: pointer;
         }
+
+        .loading {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @keyframes colorChange {
+            0% {
+                background-color: #004b8c;
+            }
+
+            /* Dark Blue */
+            50% {
+                background-color: #008c69;
+            }
+
+            /* Dark Blue-Green */
+            100% {
+                background-color: #004b8c;
+            }
+
+            /* Dark Blue */
+        }
+
+        .loading-button {
+            padding: 10px 20px;
+            color: #FFFFFF;
+            background-color: #00008B;
+            /* Dark blue */
+            border: none;
+            font-size: large;
+            font-weight: 500;
+            cursor: not-allowed;
+            /* Prevents the user from clicking */
+            display: inline-block;
+            animation: colorChange 1s infinite;
+            /* Added this line to animate the color change */
+        }
     </style>
 </head>
 
@@ -79,21 +118,35 @@
         </a>
     </div>
 
+    <div class="loading" id="is-loading" style="display: none;">
+        <button class="loading-button">Site compatible ! <br>⌛recherche en cours, veuillez
+            patienter...</button>
+    </div>
+
+
     <div class="main-content">
         <div class="title">
             Trouver l'adresse d'une annonce immobilière en ligne
         </div>
-        <ol>
-            <li>Rendez-vous sur une annonce de vente immobilière d'un site compatible:
-                <div class="button-container">
-                    <!-- Updated buttons -->
-                    <button class="button" onclick="window.open('http://seloger.com', '_blank');">Seloger.com</button>
-                    <button class="button" onclick="window.open('http://leboncoin.fr', '_blank');">leboncoin.fr</button>
-                </div>
-            </li>
-            <li>Ouvrez une page d'annonce de vente ou location immobilière.</li>
-            <li>Rouvrez cette extension</li>
-        </ol>
+        <div class="explainations">
+
+            <ol>
+                <li>Rendez-vous sur une annonce de immobilière <strong>soumise au DPE</strong> d'un site compatible:
+                    <div class="button-container">
+                        <!-- Updated buttons -->
+                        <a href="https://seloger.com" target="_blank">
+                            <button class="button">Seloger.com</button>
+                        </a>
+                        <a href="https://leboncoin.fr" target="_blank">
+                            <button class="button">leboncoin.fr</button>
+                        </a>
+                    </div>
+                </li>
+                <li>Ouvrez une page d'annonce de vente ou location immobilière.</li>
+                <li>Rouvrez cette extension</li>
+            </ol>
+
+        </div>
     </div>
 
     <div class="saved-ads-button">
