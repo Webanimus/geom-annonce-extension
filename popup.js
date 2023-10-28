@@ -1,26 +1,31 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Query for the active tab in the current window
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      // tabs[0] is the first (and only) tab returned by the query
-      const currentTab = tabs[0];
-  
-      try {
-        // Send a message to the content script running in the current tab
-        chrome.tabs.sendMessage(currentTab.id, { text: 'geomannonce-lookup' }, function(response) {
-          if(chrome.runtime.lastError) {
-            // If there was an error, log it
-            console.log(`Could not send message to tab ${currentTab.id}: ${chrome.runtime.lastError}`);
-          } else {
-            // If there's no error, handle the response
-            console.log(`Message sent to tab ${currentTab.id} successfully!`);
-            // handle response here
-            console.log(response);
-          }
+
+
+statusDiv = document.getElementById("status-div");
+statusDiv.style.display = "block";
+statusText = document.getElementById("status-text");
+statusText.innerHTML = "Chargement de la page ...";
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Query the active tab
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const activeTab = tabs[0];
+
+        // Send a message to the content script running in the active tab
+        chrome.tabs.sendMessage(activeTab.id, { action: 'isContentScriptRunning' }, (response) => {
+            // Check for errors (content script not running)
+            if (chrome.runtime.lastError) {
+                console.error(chrome.runtime.lastError);
+                return;
+            }
+
+            // Process the response from the content script
+            if (response && response.success) {
+                console.log('Content script is running and returned success.');
+                statusText.innerHTML = "Recherche en cours de la page :<br>" + response.title;
+            } else {
+                console.log('Content script is either not running or returned failure.');
+                statusText.innerHTML = "Content script is either not running or returned failure.";
+            }
         });
-      } catch(err) {
-        // If an exception occurred while sending the message, log it
-        console.error(`Failed to send message to tab ${currentTab.id}: ${err}`);
-      }
     });
-  });
-  
+});

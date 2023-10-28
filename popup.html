@@ -74,6 +74,9 @@
         .loading {
             text-align: center;
             margin-top: 20px;
+            /* dont show by default */
+            display: none;
+
         }
 
         @keyframes colorChange {
@@ -105,9 +108,19 @@
             cursor: not-allowed;
             /* Prevents the user from clicking */
             display: inline-block;
-            animation: colorChange 1s infinite;
             /* Added this line to animate the color change */
         }
+
+        .animate {
+            animation-name: colorChange;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        .error {
+            background-color: #a84c00;
+        }
+
     </style>
 </head>
 
@@ -118,9 +131,8 @@
         </a>
     </div>
 
-    <div class="loading" id="is-loading" style="display: none;">
-        <button class="loading-button">Site compatible ! <br>⌛recherche en cours, veuillez
-            patienter...</button>
+    <div class="loading" id="status-div" >
+        <button class="loading-button animate" id="status-block"><a id="status-text">Status</a></button>
     </div>
 
 

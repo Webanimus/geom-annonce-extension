@@ -56,10 +56,8 @@ function sendDOMToRemoteGeomAnnonce() {
 }
 
 
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
-    if (msg.text === 'geomannonce-lookup') {
-
-        let content = document.documentElement.outerHTML;
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.text === 'geomannonce-lookup') {
 
         // alert users when they are not on a supported website, and return.
         if (hostnameIsSupported(window.location.hostname)) {
@@ -79,4 +77,16 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         shipPayload();
 
     }
+});
+
+// Variable to store the "running" status of this content script
+let isRunning = true;
+
+// Listen for incoming messages
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  // Check if the message is asking if the content script is running
+  if (request.action === 'isContentScriptRunning') {
+    // Send a response indicating success
+    sendResponse({success: isRunning, hostname: window.location.hostname, href: window.location.href, title: document.titl});
+  }
 });
