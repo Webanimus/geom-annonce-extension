@@ -1,9 +1,9 @@
 
 
 statusDiv = document.getElementById("status-div");
-statusDiv.style.display = "block";
+// statusDiv.style.display = "block";
 statusText = document.getElementById("status-text");
-statusText.innerHTML = "Chargement de la page ...";
+// statusText.innerHTML = "Chargement de la page ...";
 
 var tryLookup = false;
 
@@ -25,10 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Process the response from the content script
             if (response && response.success) {
                 console.log('Content script is running and returned success.');
+                statusDiv.style.display = "block";
                 statusText.innerHTML = "Recherche d'adresse en cours pour :<br>" + response.title + "<br><br><strong>Veuillez patienter ...</strong>";
             } else {
                 console.log('Content script is either not running or returned failure.');
-                statusText.innerHTML = "Content script is either not running or returned failure.";
+                // statusDiv.style.display = "block";
+                // statusText.innerHTML = "Content script is either not running or returned failure.";
             }
         });
 
