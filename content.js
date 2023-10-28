@@ -87,6 +87,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   // Check if the message is asking if the content script is running
   if (request.action === 'isContentScriptRunning') {
     // Send a response indicating success
-    sendResponse({success: isRunning, hostname: window.location.hostname, href: window.location.href, title: document.titl});
+    sendResponse({success: isRunning, hostname: window.location.hostname, href: window.location.href, title: document.title});
   }
 });
