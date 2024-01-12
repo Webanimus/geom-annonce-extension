@@ -34,9 +34,29 @@ function domReadyToSend() {
 }
 
 function sendDOMToRemoteGeomAnnonce() {
-    let domContent = document.documentElement.outerHTML;
+    let parser = new DOMParser();
+    let doc = parser.parseFromString(document.documentElement.outerHTML, 'text/html');
+
+    console.log("DOM size: ", doc.documentElement.outerHTML.length);
+
+    // Remove all script tags
+    let scripts = doc.getElementsByTagName('script');
+    while (scripts[0]) {
+        scripts[0].parentNode.removeChild(scripts[0]);
+    }
+
+    // Remove all iframe tags
+    let iframes = doc.getElementsByTagName('iframe');
+    while (iframes[0]) {
+        iframes[0].parentNode.removeChild(iframes[0]);
+    }
+
+    let domContent = doc.documentElement.outerHTML;
     let url = window.location.href;
     let save_url = BASE_URL + "/geomannonce/save/";
+    
+    console.log("Sending DOM to remote Geom Annonce: ", save_url, url, domContent.length)
+
     axios.post(save_url, {
         url: url,
         content: domContent
@@ -46,14 +66,15 @@ function sendDOMToRemoteGeomAnnonce() {
         window.open(target, '_blank');
         return axios.get(target);
     }).catch(error => {
-
+        let alertMessage = `Geom Annonce :\nAnnonce immobilière non reconnue, êtes-vous sur que ceci est une annonce immobilière ? \n\n${save_url}\n`;
         if (error.response) {
-            alert(`Geom Annonce :\nAnnonce immobilière non reconnue, êtes-vous sur que ceci est une annonce immobilière ? \n\n${save_url}\n`);
+            alert(alertMessage);
         } else {
-            alert(`Geom Annonce :\nAnnonce immobilière non reconnue, êtes-vous sur que ceci est une annonce immobilière ? \n\n${save_url}\n`);
+            alert(alertMessage);
         }
     });
 }
+
 
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -63,7 +84,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (hostnameIsSupported(window.location.hostname)) {
             console.log("Compatible hostname recognised: ", window.location.hostname);
         } else {
-            let alert_message ="Geom Annonce :\nAnnonce immobilière non reconnue : " + window.location.hostname + ".\n\nVeuillez ré-essayer sur une annonce immobilière d'un site compatible : \n - "
+            let alert_message = "Geom Annonce :\nAnnonce immobilière non reconnue : " + window.location.hostname + ".\n\nVeuillez ré-essayer sur une annonce immobilière d'un site compatible : \n - "
                 + SUPPORTED_HOSTNAMES.join("\n - ");
             //TODO @JorisPLA7: replace alert by a cleaner popup
             alert(alert_message);
@@ -84,9 +105,9 @@ let isRunning = true;
 
 // Listen for incoming messages
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  // Check if the message is asking if the content script is running
-  if (request.action === 'isContentScriptRunning') {
-    // Send a response indicating success
-    sendResponse({success: isRunning, hostname: window.location.hostname, href: window.location.href, title: document.title});
-  }
+    // Check if the message is asking if the content script is running
+    if (request.action === 'isContentScriptRunning') {
+        // Send a response indicating success
+        sendResponse({ success: isRunning, hostname: window.location.hostname, href: window.location.href, title: document.title });
+    }
 });
