@@ -24,7 +24,7 @@
 
         .logo {
             width: 80px;
-            height: 50px;
+            height: 40px;
         }
 
         .main-content {
@@ -76,7 +76,6 @@
             margin-top: 20px;
             /* dont show by default */
             display: none;
-
         }
 
         @keyframes colorChange {
@@ -120,7 +119,6 @@
         .error {
             background-color: #a84c00;
         }
-
     </style>
 </head>
 
@@ -131,7 +129,7 @@
         </a>
     </div>
 
-    <div class="loading" id="status-div" >
+    <div class="loading" id="status-div">
         <button class="loading-button animate" id="status-block"><a id="status-text">Status</a></button>
     </div>
 
@@ -143,7 +141,7 @@
         <div class="explainations">
 
             <ol>
-                <li>Rendez-vous sur une annonce de immobilière <strong>soumise au DPE</strong> d'un site compatible:
+                <li>Rendez-vous sur une annonce de immobilière d'un site compatible:
                     <div class="button-container">
                         <!-- Updated buttons -->
                         <a href="https://seloger.com" target="_blank">
@@ -154,10 +152,13 @@
                         </a>
                     </div>
                 </li>
-                <li>Ouvrez une page d'annonce de vente ou location immobilière.</li>
+                <li>Ouvrez une page d'annonce immobilière d'une maison ou appartement</li>
+                <li>L'annonce doit être <strong style="text-decoration: underline;"> soumise au DPE depuis juillet
+                        2021</strong>.</li>
                 <li>Rouvrez cette extension</li>
             </ol>
-
+            <div style="font-size:smaller; color: grey">Ne sont pas compatibles les annonces non soumis au DPE, ou
+                soumises au DPE, ou dont le DPE date d'avant juillet 2021</div>
         </div>
     </div>
 
