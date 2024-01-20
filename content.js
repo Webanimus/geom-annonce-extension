@@ -41,8 +41,12 @@ function sendDOMToRemoteGeomAnnonce() {
 
     // Remove all script tags
     let scripts = doc.getElementsByTagName('script');
-    while (scripts[0]) {
-        scripts[0].parentNode.removeChild(scripts[0]);
+    for (let i = 0; i < scripts.length; i++) {
+        // If on seloger.com do not remove the script tag that contains the data, id __NEXT_DATA__
+        if (window.location.hostname.endsWith("seloger.com") && scripts[i].id === "__NEXT_DATA__") {
+                continue;
+        }
+        scripts[i].parentNode.removeChild(scripts[i]);
     }
 
     // Remove all iframe tags
